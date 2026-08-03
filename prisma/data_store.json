@@ -1,0 +1,488 @@
+{
+  "User": [
+    {
+      "id": "usr_fingerclic_master_001",
+      "email": "fingerclic@gmail.com",
+      "passwordHash": "$2b$10$ql8N9Li20r0Mlpex63jx4OdrFXh9QxsJIYU7BshQNTL/d1PVOKBDW",
+      "fullName": "Alexandre Fingerclic",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
+      "phone": "+33 6 12 34 56 78",
+      "bio": "Super Admin & Fondateur de l'écosystème Fingerclic Identify",
+      "emailVerified": true,
+      "language": "fr",
+      "timezone": "Europe/Paris",
+      "twoFactorEnabled": false,
+      "createdAt": "2026-07-04T08:34:44.339Z",
+      "updatedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "Profile": [
+    {
+      "id": "prof_master_001",
+      "userId": "usr_fingerclic_master_001",
+      "address": "15 Avenue des Champs-Élysées",
+      "city": "Paris",
+      "country": "France",
+      "postalCode": "75008",
+      "company": "Fingerclic Technologies",
+      "jobTitle": "Chief Identity Officer",
+      "createdAt": "2026-07-04T08:34:44.339Z",
+      "updatedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "UserPreference": [
+    {
+      "id": "pref_master_001",
+      "userId": "usr_fingerclic_master_001",
+      "theme": "dark",
+      "marketingEmails": true,
+      "securityAlerts": true,
+      "twoFactorEnabled": false,
+      "createdAt": "2026-07-04T08:34:44.339Z",
+      "updatedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "NotificationPreference": [
+    {
+      "id": "npref_master_001",
+      "userId": "usr_fingerclic_master_001",
+      "emailNotify": true,
+      "smsNotify": false,
+      "pushNotify": true,
+      "loginAlerts": true,
+      "weeklyReport": true,
+      "updatedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "Session": [
+    {
+      "id": "session_qf7lyeh4_1785749407997",
+      "createdAt": "2026-08-03T09:30:07.997Z",
+      "updatedAt": "2026-08-03T09:30:07.997Z",
+      "userId": "usr_fingerclic_master_001",
+      "token": "sess_8y06ymjjs_1785749407997",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "deviceType": "Desktop",
+      "browser": "Chrome",
+      "os": "Windows",
+      "city": "Paris",
+      "country": "France",
+      "location": "Paris, France",
+      "isCurrent": true,
+      "expiresAt": "2026-08-10T09:30:07.997Z"
+    },
+    {
+      "id": "sess_init_fingerclic_001",
+      "userId": "usr_fingerclic_master_001",
+      "token": "sess_token_init_001",
+      "ipAddress": "88.167.24.102",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Chrome/128.0.0.0",
+      "deviceType": "Desktop",
+      "browser": "Chrome 128",
+      "os": "macOS Sonoma",
+      "city": "Paris",
+      "country": "France",
+      "location": "Paris, France",
+      "isCurrent": true,
+      "lastActive": "2026-08-03T08:34:44.339Z",
+      "createdAt": "2026-08-03T07:34:44.340Z",
+      "expiresAt": "2026-08-10T08:34:44.340Z"
+    }
+  ],
+  "RefreshToken": [
+    {
+      "id": "refreshtoken_xwb3p20a_1785750812851",
+      "createdAt": "2026-08-03T09:53:32.851Z",
+      "updatedAt": "2026-08-03T09:53:32.851Z",
+      "userId": "usr_fingerclic_master_001",
+      "sessionId": "session_qf7lyeh4_1785749407997",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1NzUwODEyLCJleHAiOjE3ODYzNTU2MTJ9.f4bTIsNsfG1D3gD347i1kGQEbLR03dWAgpBRgvvYGUg",
+      "revoked": false,
+      "expiresAt": "2026-08-10T09:53:32.851Z"
+    },
+    {
+      "id": "refreshtoken_0g1sd7pv_1785749408000",
+      "createdAt": "2026-08-03T09:30:08.000Z",
+      "updatedAt": "2026-08-03T09:53:32.850Z",
+      "userId": "usr_fingerclic_master_001",
+      "sessionId": "session_qf7lyeh4_1785749407997",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1NzQ5NDA4LCJleHAiOjE3ODYzNTQyMDh9.p1jDK6xYFy5Y41aKEY7BQq2XOrJb2YmRlc6U0U-1YT8",
+      "revoked": true,
+      "expiresAt": "2026-08-10T09:30:08.000Z"
+    }
+  ],
+  "VerificationToken": [],
+  "PasswordResetToken": [],
+  "Role": [
+    {
+      "id": "role_super_admin",
+      "name": "SUPER_ADMIN",
+      "description": "Accès administrateur suprême sur tout l'écosystème Fingerclic",
+      "type": "SUPER_ADMIN",
+      "createdAt": "2026-08-03T08:34:44.339Z",
+      "updatedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "Permission": [
+    {
+      "id": "perm_auth_all",
+      "name": "auth:manage",
+      "category": "auth",
+      "description": "Gestion complète des identités",
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "perm_apps_all",
+      "name": "apps:manage",
+      "category": "apps",
+      "description": "Gestion des accès applications",
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "perm_org_all",
+      "name": "org:manage",
+      "category": "organisation",
+      "description": "Gestion des organisations",
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "perm_security_all",
+      "name": "security:audit",
+      "category": "security",
+      "description": "Accès aux logs de sécurité",
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "RolePermission": [
+    {
+      "id": "rp_perm_auth_all",
+      "roleId": "role_super_admin",
+      "permissionId": "perm_auth_all"
+    },
+    {
+      "id": "rp_perm_apps_all",
+      "roleId": "role_super_admin",
+      "permissionId": "perm_apps_all"
+    },
+    {
+      "id": "rp_perm_org_all",
+      "roleId": "role_super_admin",
+      "permissionId": "perm_org_all"
+    },
+    {
+      "id": "rp_perm_security_all",
+      "roleId": "role_super_admin",
+      "permissionId": "perm_security_all"
+    }
+  ],
+  "UserRole": [
+    {
+      "id": "ur_master_001",
+      "userId": "usr_fingerclic_master_001",
+      "roleId": "role_super_admin",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "Organization": [
+    {
+      "id": "org_fingerclic_core",
+      "name": "Fingerclic Core Tech",
+      "slug": "fingerclic-core",
+      "description": "Équipe principale de développement et sécurité d'identité",
+      "logoUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=200",
+      "createdAt": "2026-07-04T08:34:44.339Z",
+      "updatedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "OrganizationMember": [
+    {
+      "id": "orgmem_master_001",
+      "organizationId": "org_fingerclic_core",
+      "userId": "usr_fingerclic_master_001",
+      "role": "SUPER_ADMIN",
+      "joinedAt": "2026-07-04T08:34:44.339Z"
+    }
+  ],
+  "OAuthClient": [],
+  "OAuthAuthorization": [],
+  "ApiKey": [
+    {
+      "id": "key_001",
+      "userId": "usr_fingerclic_master_001",
+      "name": "Production OAuth Integration Key",
+      "prefix": "fc_live_9a87...",
+      "keyHash": "hash_live_secret_key_001",
+      "lastUsed": "2026-08-03T08:34:44.339Z",
+      "expiresAt": null,
+      "createdAt": "2026-07-24T08:34:44.340Z"
+    },
+    {
+      "id": "key_002",
+      "userId": "usr_fingerclic_master_001",
+      "name": "Development Testing Key",
+      "prefix": "fc_test_3b21...",
+      "keyHash": "hash_test_secret_key_002",
+      "lastUsed": "2026-08-02T08:34:44.340Z",
+      "expiresAt": null,
+      "createdAt": "2026-07-29T08:34:44.340Z"
+    }
+  ],
+  "Application": [
+    {
+      "id": "app_marketplace",
+      "code": "MARKETPLACE",
+      "name": "Marketplace",
+      "description": "Achat et vente de services, assets et ressources numériques Fingerclic",
+      "url": "https://marketplace.fingerclic.com",
+      "iconName": "ShoppingBag",
+      "color": "#3B82F6",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_creator",
+      "code": "CREATOR",
+      "name": "Creator Studio",
+      "description": "Plateforme d'édition, monétisation et diffusion de contenus pour créateurs",
+      "url": "https://creator.fingerclic.com",
+      "iconName": "Video",
+      "color": "#8B5CF6",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_admin",
+      "code": "ADMIN",
+      "name": "Admin Central",
+      "description": "Supervision globale, modération et gestion de la communauté",
+      "url": "https://admin.fingerclic.com",
+      "iconName": "ShieldCheck",
+      "color": "#EF4444",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_habitat",
+      "code": "HABITAT",
+      "name": "Habitat",
+      "description": "Gestion immobilière, réservation de résidences et espaces collaboratifs",
+      "url": "https://habitat.fingerclic.com",
+      "iconName": "Home",
+      "color": "#10B981",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_academy",
+      "code": "ACADEMY",
+      "name": "Academy",
+      "description": "E-learning, certifications professionnelles et parcours de compétences",
+      "url": "https://academy.fingerclic.com",
+      "iconName": "GraduationCap",
+      "color": "#F59E0B",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_organisation",
+      "code": "ORGANISATION",
+      "name": "Organisation",
+      "description": "Gestion d'entreprises, équipes, rôles et espaces de travail",
+      "url": "https://org.fingerclic.com",
+      "iconName": "Building2",
+      "color": "#6366F1",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_fip",
+      "code": "FIP",
+      "name": "FIP (Finances)",
+      "description": "Financement participatif, investissement et suivi des transactions",
+      "url": "https://fip.fingerclic.com",
+      "iconName": "TrendingUp",
+      "color": "#EC4899",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "app_website",
+      "code": "WEBSITE",
+      "name": "Portail Officiel",
+      "description": "Portail institutionnel et vitrine globale Fingerclic",
+      "url": "https://fingerclic.com",
+      "iconName": "Globe",
+      "color": "#06B6D4",
+      "isSystem": true,
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "ApplicationAccess": [
+    {
+      "id": "access_usr_fingerclic_master_001_app_marketplace",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_marketplace",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_creator",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_creator",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_admin",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_admin",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_habitat",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_habitat",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_academy",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_academy",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_organisation",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_organisation",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_fip",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_fip",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_website",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_website",
+      "grantedAt": "2026-08-03T08:34:44.339Z"
+    }
+  ],
+  "LoginHistory": [
+    {
+      "id": "loginhistory_o2fhx9em_1785749407998",
+      "createdAt": "2026-08-03T09:30:07.998Z",
+      "updatedAt": "2026-08-03T09:30:07.998Z",
+      "userId": "usr_fingerclic_master_001",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "browser": "Chrome",
+      "os": "Windows",
+      "city": "Paris",
+      "country": "France",
+      "success": true
+    }
+  ],
+  "SecurityEvent": [
+    {
+      "id": "securityevent_1ytizq8v_1785749408001",
+      "createdAt": "2026-08-03T09:30:08.001Z",
+      "updatedAt": "2026-08-03T09:30:08.001Z",
+      "userId": "usr_fingerclic_master_001",
+      "eventType": "LOGIN_SUCCESS",
+      "severity": "INFO",
+      "description": "Connexion réussie (Chrome / Windows)",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "id": "sec_001",
+      "userId": "usr_fingerclic_master_001",
+      "eventType": "LOGIN_SUCCESS",
+      "severity": "INFO",
+      "description": "Connexion réussie depuis Chrome 128 (macOS)",
+      "ipAddress": "88.167.24.102",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    },
+    {
+      "id": "sec_002",
+      "userId": "usr_fingerclic_master_001",
+      "eventType": "SSO_AUTHORIZATION",
+      "severity": "INFO",
+      "description": "Autorisation accordée à Creator Studio via OIDC",
+      "ipAddress": "88.167.24.102",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
+      "createdAt": "2026-08-03T06:34:44.340Z"
+    }
+  ],
+  "Device": [
+    {
+      "id": "device_4lm27jri_1785749407998",
+      "createdAt": "2026-08-03T09:30:07.998Z",
+      "updatedAt": "2026-08-03T09:30:07.998Z",
+      "userId": "usr_fingerclic_master_001",
+      "deviceId": "dev_1785749407998",
+      "name": "Windows (Chrome)",
+      "type": "Desktop",
+      "os": "Windows",
+      "browser": "Chrome",
+      "ipAddress": "127.0.0.1"
+    },
+    {
+      "id": "dev_001",
+      "userId": "usr_fingerclic_master_001",
+      "deviceId": "macbook_pro_001",
+      "name": "MacBook Pro 16\" (M3 Max)",
+      "type": "Desktop",
+      "os": "macOS Sonoma",
+      "browser": "Chrome 128",
+      "ipAddress": "88.167.24.102",
+      "lastActive": "2026-08-03T08:34:44.339Z",
+      "createdAt": "2026-07-04T08:34:44.339Z"
+    },
+    {
+      "id": "dev_002",
+      "userId": "usr_fingerclic_master_001",
+      "deviceId": "iphone_15_pro",
+      "name": "iPhone 15 Pro Max",
+      "type": "Mobile",
+      "os": "iOS 17.5",
+      "browser": "Mobile Safari",
+      "ipAddress": "88.167.24.105",
+      "lastActive": "2026-08-03T04:34:44.340Z",
+      "createdAt": "2026-07-19T08:34:44.340Z"
+    }
+  ],
+  "AuditLog": [
+    {
+      "id": "auditlog_blaziu5g_1785750812852",
+      "createdAt": "2026-08-03T09:53:32.852Z",
+      "updatedAt": "2026-08-03T09:53:32.852Z",
+      "userId": "usr_fingerclic_master_001",
+      "action": "auth.token_rotated",
+      "details": "Rotation automatique du Refresh Token effectuée avec succès dans PostgreSQL via Prisma",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "id": "auditlog_bk8404zg_1785749408001",
+      "createdAt": "2026-08-03T09:30:08.001Z",
+      "updatedAt": "2026-08-03T09:30:08.001Z",
+      "userId": "usr_fingerclic_master_001",
+      "action": "auth.login",
+      "details": "Connexion réussie via Prisma depuis Chrome",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+    },
+    {
+      "id": "log_seed_001",
+      "userId": "usr_fingerclic_master_001",
+      "action": "system.seeded",
+      "details": "Base de données PostgreSQL / Prisma initialisée avec succès pour Fingerclic Identify",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "Prisma Client Bootstrapper",
+      "createdAt": "2026-08-03T08:34:44.339Z"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Fingerclic Identify",
+  "description": "Unified Identity Provider (IdP) platform for Fingerclic ecosystem with authentication, sessions, security, and profile management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
