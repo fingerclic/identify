@@ -15,7 +15,7 @@ import { apiKeyRouter } from './src/server/routes/apikey.routes';
 import { metricsRouter } from './src/server/routes/metrics.routes';
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 // Security & Standard Middlewares
 app.use(securityHeaders);
