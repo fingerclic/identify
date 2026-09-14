@@ -11,7 +11,10 @@ export interface AuthenticatedRequest extends Request {
 export function extractToken(req: Request): string | null {
   const authHeader = req.headers.authorization;
   if (authHeader && authHeader.startsWith('Bearer ')) {
-    return authHeader.split(' ')[1];
+    const raw = authHeader.split(' ')[1]?.trim();
+    if (raw && raw !== 'undefined' && raw !== 'null') {
+      return raw;
+    }
   }
 
   if (req.headers.cookie) {

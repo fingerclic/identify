@@ -30,7 +30,7 @@ export const OAuthConsentCard: React.FC<OAuthConsentCardProps> = ({
   codeChallengeMethod,
   nonce
 }) => {
-  const { user, token } = useAuth();
+  const { user, accessToken } = useAuth();
   const [isAuthorizing, setIsAuthorizing] = useState(false);
   const [authError, setAuthError] = useState<string | null>(null);
 
@@ -41,12 +41,17 @@ export const OAuthConsentCard: React.FC<OAuthConsentCardProps> = ({
     setAuthError(null);
 
     try {
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      if (accessToken) {
+        headers['Authorization'] = `Bearer ${accessToken}`;
+      }
+
       const res = await fetch('/oauth/authorize', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+        headers,
+        credentials: 'include',
         body: JSON.stringify({
           client_id: clientId,
           redirect_uri: redirectUri,
