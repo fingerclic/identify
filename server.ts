@@ -22,6 +22,7 @@ app.use(securityHeaders);
 app.use(globalRateLimiter);
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Mount OIDC & OAuth Standard Protocol Routes
 app.use('/', oauthRouter);
