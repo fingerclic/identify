@@ -3,7 +3,7 @@
     {
       "id": "usr_fingerclic_master_001",
       "email": "fingerclic@gmail.com",
-      "passwordHash": "$2b$10$ql8N9Li20r0Mlpex63jx4OdrFXh9QxsJIYU7BshQNTL/d1PVOKBDW",
+      "passwordHash": "$2b$10$6UdGNRppnlM7.68s6RbmAOy1kLoPuk6Rs95fvj2yq9LQCzfa5ZpY6",
       "fullName": "Alexandre Fingerclic",
       "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
       "phone": "+33 6 12 34 56 78",
@@ -12,8 +12,8 @@
       "language": "fr",
       "timezone": "Europe/Paris",
       "twoFactorEnabled": false,
-      "createdAt": "2026-07-04T08:34:44.339Z",
-      "updatedAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-08-09T20:44:47.400Z",
+      "updatedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "Profile": [
@@ -26,8 +26,8 @@
       "postalCode": "75008",
       "company": "Fingerclic Technologies",
       "jobTitle": "Chief Identity Officer",
-      "createdAt": "2026-07-04T08:34:44.339Z",
-      "updatedAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-08-09T20:44:47.400Z",
+      "updatedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "UserPreference": [
@@ -38,8 +38,8 @@
       "marketingEmails": true,
       "securityAlerts": true,
       "twoFactorEnabled": false,
-      "createdAt": "2026-07-04T08:34:44.339Z",
-      "updatedAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-08-09T20:44:47.400Z",
+      "updatedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "NotificationPreference": [
@@ -51,26 +51,43 @@
       "pushNotify": true,
       "loginAlerts": true,
       "weeklyReport": true,
-      "updatedAt": "2026-08-03T08:34:44.339Z"
+      "updatedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "Session": [
     {
-      "id": "session_qf7lyeh4_1785749407997",
-      "createdAt": "2026-08-03T09:30:07.997Z",
-      "updatedAt": "2026-08-03T09:30:07.997Z",
+      "id": "session_s52cho9v_1788902069235",
+      "createdAt": "2026-09-08T21:14:29.235Z",
+      "updatedAt": "2026-09-08T21:14:29.235Z",
       "userId": "usr_fingerclic_master_001",
-      "token": "sess_8y06ymjjs_1785749407997",
+      "token": "sess_ahypcvzch_1788902069235",
       "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "userAgent": "node",
       "deviceType": "Desktop",
       "browser": "Chrome",
-      "os": "Windows",
+      "os": "macOS",
       "city": "Paris",
       "country": "France",
       "location": "Paris, France",
       "isCurrent": true,
-      "expiresAt": "2026-08-10T09:30:07.997Z"
+      "expiresAt": "2026-09-15T21:14:29.235Z"
+    },
+    {
+      "id": "session_tpc4n4rn_1788902031360",
+      "createdAt": "2026-09-08T21:13:51.360Z",
+      "updatedAt": "2026-09-08T21:13:51.360Z",
+      "userId": "usr_fingerclic_master_001",
+      "token": "sess_6194h7jkl_1788902031360",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "node",
+      "deviceType": "Desktop",
+      "browser": "Chrome",
+      "os": "macOS",
+      "city": "Paris",
+      "country": "France",
+      "location": "Paris, France",
+      "isCurrent": true,
+      "expiresAt": "2026-09-15T21:13:51.360Z"
     },
     {
       "id": "sess_init_fingerclic_001",
@@ -85,71 +102,40 @@
       "country": "France",
       "location": "Paris, France",
       "isCurrent": true,
-      "lastActive": "2026-08-03T08:34:44.339Z",
-      "createdAt": "2026-08-03T07:34:44.340Z",
-      "expiresAt": "2026-08-10T08:34:44.340Z"
+      "lastActive": "2026-09-08T20:44:47.400Z",
+      "createdAt": "2026-09-08T19:44:47.400Z",
+      "expiresAt": "2026-09-15T20:44:47.401Z"
     }
   ],
   "RefreshToken": [
     {
-      "id": "refreshtoken_16803d8a_1785837360926",
-      "createdAt": "2026-08-04T09:56:00.926Z",
-      "updatedAt": "2026-08-04T09:56:00.926Z",
+      "id": "refreshtoken_xif4vzut_1788902069270",
+      "createdAt": "2026-09-08T21:14:29.270Z",
+      "updatedAt": "2026-09-08T21:14:29.270Z",
       "userId": "usr_fingerclic_master_001",
-      "sessionId": "session_qf7lyeh4_1785749407997",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1ODM3MzYwLCJleHAiOjE3ODY0NDIxNjB9.aVyMtR4oqghUytchnF48UuZ-kzxEUJCAxK-XVtjmnEQ",
+      "sessionId": "sess_oidc_5ad0153099e351a6",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc19vaWRjXzVhZDAxNTMwOTllMzUxYTYiLCJpYXQiOjE3ODg5MDIwNjksImV4cCI6MTc4OTUwNjg2OX0.CPyewTLmgUmJPCXzecGqtjmxU-3OqEdw3VInElLWEDc",
+      "expiresAt": "2026-09-15T21:14:29.270Z"
+    },
+    {
+      "id": "refreshtoken_lmvqd9ug_1788902069240",
+      "createdAt": "2026-09-08T21:14:29.240Z",
+      "updatedAt": "2026-09-08T21:14:29.240Z",
+      "userId": "usr_fingerclic_master_001",
+      "sessionId": "session_s52cho9v_1788902069235",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9zNTJjaG85dl8xNzg4OTAyMDY5MjM1IiwiaWF0IjoxNzg4OTAyMDY5LCJleHAiOjE3ODk1MDY4Njl9.jd2I1vuY2xGTsa00seioC0xkp0iMBQYyYYU3MxEXVPI",
       "revoked": false,
-      "expiresAt": "2026-08-11T09:56:00.926Z"
+      "expiresAt": "2026-09-15T21:14:29.240Z"
     },
     {
-      "id": "refreshtoken_m9a8c66d_1785835767009",
-      "createdAt": "2026-08-04T09:29:27.009Z",
-      "updatedAt": "2026-08-04T09:56:00.924Z",
+      "id": "refreshtoken_p6jt7t5r_1788902031365",
+      "createdAt": "2026-09-08T21:13:51.365Z",
+      "updatedAt": "2026-09-08T21:13:51.365Z",
       "userId": "usr_fingerclic_master_001",
-      "sessionId": "session_qf7lyeh4_1785749407997",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1ODM1NzY3LCJleHAiOjE3ODY0NDA1Njd9.T7z4rpucthq5e4VTBh06-sYNcGj6xfFcpjPeqfJAHxw",
-      "revoked": true,
-      "expiresAt": "2026-08-11T09:29:27.009Z"
-    },
-    {
-      "id": "refreshtoken_1wv24u3g_1785769063348",
-      "createdAt": "2026-08-03T14:57:43.348Z",
-      "updatedAt": "2026-08-04T09:29:27.007Z",
-      "userId": "usr_fingerclic_master_001",
-      "sessionId": "session_qf7lyeh4_1785749407997",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1NzY5MDYzLCJleHAiOjE3ODYzNzM4NjN9.9H8YYGraNP9RxcasfzlGVwHRPz_cKYM9k30KBq_TaLI",
-      "revoked": true,
-      "expiresAt": "2026-08-10T14:57:43.348Z"
-    },
-    {
-      "id": "refreshtoken_n6qiriei_1785758582600",
-      "createdAt": "2026-08-03T12:03:02.600Z",
-      "updatedAt": "2026-08-03T14:57:43.347Z",
-      "userId": "usr_fingerclic_master_001",
-      "sessionId": "session_qf7lyeh4_1785749407997",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1NzU4NTgyLCJleHAiOjE3ODYzNjMzODJ9.F-kubqwAYx6F96r_kx2afqScKv1zfr2BvDv-qk8kZQA",
-      "revoked": true,
-      "expiresAt": "2026-08-10T12:03:02.600Z"
-    },
-    {
-      "id": "refreshtoken_xwb3p20a_1785750812851",
-      "createdAt": "2026-08-03T09:53:32.851Z",
-      "updatedAt": "2026-08-03T12:03:02.599Z",
-      "userId": "usr_fingerclic_master_001",
-      "sessionId": "session_qf7lyeh4_1785749407997",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1NzUwODEyLCJleHAiOjE3ODYzNTU2MTJ9.f4bTIsNsfG1D3gD347i1kGQEbLR03dWAgpBRgvvYGUg",
-      "revoked": true,
-      "expiresAt": "2026-08-10T09:53:32.851Z"
-    },
-    {
-      "id": "refreshtoken_0g1sd7pv_1785749408000",
-      "createdAt": "2026-08-03T09:30:08.000Z",
-      "updatedAt": "2026-08-03T09:53:32.850Z",
-      "userId": "usr_fingerclic_master_001",
-      "sessionId": "session_qf7lyeh4_1785749407997",
-      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl9xZjdseWVoNF8xNzg1NzQ5NDA3OTk3IiwiaWF0IjoxNzg1NzQ5NDA4LCJleHAiOjE3ODYzNTQyMDh9.p1jDK6xYFy5Y41aKEY7BQq2XOrJb2YmRlc6U0U-1YT8",
-      "revoked": true,
-      "expiresAt": "2026-08-10T09:30:08.000Z"
+      "sessionId": "session_tpc4n4rn_1788902031360",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c3JfZmluZ2VyY2xpY19tYXN0ZXJfMDAxIiwic2Vzc2lvbklkIjoic2Vzc2lvbl90cGM0bjRybl8xNzg4OTAyMDMxMzYwIiwiaWF0IjoxNzg4OTAyMDMxLCJleHAiOjE3ODk1MDY4MzF9.r0G3tsgpnE5uApeLVkyWnh4DD-zxRWhljmSPzjA3gc8",
+      "revoked": false,
+      "expiresAt": "2026-09-15T21:13:51.365Z"
     }
   ],
   "VerificationToken": [],
@@ -160,8 +146,8 @@
       "name": "SUPER_ADMIN",
       "description": "Accès administrateur suprême sur tout l'écosystème Fingerclic",
       "type": "SUPER_ADMIN",
-      "createdAt": "2026-08-03T08:34:44.339Z",
-      "updatedAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z",
+      "updatedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "Permission": [
@@ -170,28 +156,28 @@
       "name": "auth:manage",
       "category": "auth",
       "description": "Gestion complète des identités",
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "perm_apps_all",
       "name": "apps:manage",
       "category": "apps",
       "description": "Gestion des accès applications",
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "perm_org_all",
       "name": "org:manage",
       "category": "organisation",
       "description": "Gestion des organisations",
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "perm_security_all",
       "name": "security:audit",
       "category": "security",
       "description": "Accès aux logs de sécurité",
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "RolePermission": [
@@ -221,7 +207,7 @@
       "id": "ur_master_001",
       "userId": "usr_fingerclic_master_001",
       "roleId": "role_super_admin",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "Organization": [
@@ -231,8 +217,8 @@
       "slug": "fingerclic-core",
       "description": "Équipe principale de développement et sécurité d'identité",
       "logoUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=200",
-      "createdAt": "2026-07-04T08:34:44.339Z",
-      "updatedAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-08-09T20:44:47.400Z",
+      "updatedAt": "2026-09-08T20:44:47.400Z"
     }
   ],
   "OrganizationMember": [
@@ -241,11 +227,36 @@
       "organizationId": "org_fingerclic_core",
       "userId": "usr_fingerclic_master_001",
       "role": "SUPER_ADMIN",
-      "joinedAt": "2026-07-04T08:34:44.339Z"
+      "joinedAt": "2026-08-09T20:44:47.400Z"
     }
   ],
-  "OAuthClient": [],
-  "OAuthAuthorization": [],
+  "OAuthClient": [
+    {
+      "id": "client_nexus_001",
+      "clientId": "fingerclic-nexus",
+      "clientSecret": "fc_sec_nexus_live_7a8b9c0d1e2f3g4h5i6j7k8l9m0n",
+      "name": "Fingerclic NEXUS",
+      "redirectUris": [
+        "https://fingerclic.com/auth/callback",
+        "https://nexus.fingerclic.com/auth/callback",
+        "http://localhost:3000/auth/callback",
+        "http://localhost:5173/auth/callback"
+      ],
+      "appCode": "NEXUS",
+      "isSystem": true,
+      "createdAt": "2026-09-08T21:13:34.259Z"
+    }
+  ],
+  "OAuthAuthorization": [
+    {
+      "id": "oauthauthorization_q3g3qrsm_1788902069262",
+      "createdAt": "2026-09-08T21:14:29.262Z",
+      "updatedAt": "2026-09-08T21:14:29.262Z",
+      "userId": "usr_fingerclic_master_001",
+      "clientId": "client_nexus_001",
+      "scope": "openid profile email"
+    }
+  ],
   "ApiKey": [
     {
       "id": "key_001",
@@ -253,9 +264,9 @@
       "name": "Production OAuth Integration Key",
       "prefix": "fc_live_9a87...",
       "keyHash": "hash_live_secret_key_001",
-      "lastUsed": "2026-08-03T08:34:44.339Z",
+      "lastUsed": "2026-09-08T20:44:47.400Z",
       "expiresAt": null,
-      "createdAt": "2026-07-24T08:34:44.340Z"
+      "createdAt": "2026-08-29T20:44:47.401Z"
     },
     {
       "id": "key_002",
@@ -263,9 +274,9 @@
       "name": "Development Testing Key",
       "prefix": "fc_test_3b21...",
       "keyHash": "hash_test_secret_key_002",
-      "lastUsed": "2026-08-02T08:34:44.340Z",
+      "lastUsed": "2026-09-07T20:44:47.401Z",
       "expiresAt": null,
-      "createdAt": "2026-07-29T08:34:44.340Z"
+      "createdAt": "2026-09-03T20:44:47.401Z"
     }
   ],
   "Application": [
@@ -278,7 +289,7 @@
       "iconName": "ShoppingBag",
       "color": "#3B82F6",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_creator",
@@ -289,7 +300,7 @@
       "iconName": "Video",
       "color": "#8B5CF6",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_admin",
@@ -300,7 +311,7 @@
       "iconName": "ShieldCheck",
       "color": "#EF4444",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_habitat",
@@ -311,7 +322,7 @@
       "iconName": "Home",
       "color": "#10B981",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_academy",
@@ -322,7 +333,7 @@
       "iconName": "GraduationCap",
       "color": "#F59E0B",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_organisation",
@@ -333,7 +344,7 @@
       "iconName": "Building2",
       "color": "#6366F1",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_fip",
@@ -344,7 +355,7 @@
       "iconName": "TrendingUp",
       "color": "#EC4899",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "app_website",
@@ -355,7 +366,18 @@
       "iconName": "Globe",
       "color": "#06B6D4",
       "isSystem": true,
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
+    },
+    {
+      "id": "app_nexus",
+      "code": "NEXUS",
+      "name": "NEXUS",
+      "description": "Plateforme centrale d'orchestration et hub applicatif unifié de l'écosystème Fingerclic",
+      "url": "https://nexus.fingerclic.com",
+      "iconName": "Layers",
+      "color": "#6366F1",
+      "isSystem": true,
+      "createdAt": "2026-09-08T21:13:34.259Z"
     }
   ],
   "ApplicationAccess": [
@@ -363,61 +385,80 @@
       "id": "access_usr_fingerclic_master_001_app_marketplace",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_marketplace",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_creator",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_creator",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_admin",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_admin",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_habitat",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_habitat",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_academy",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_academy",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_organisation",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_organisation",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_fip",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_fip",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "access_usr_fingerclic_master_001_app_website",
       "userId": "usr_fingerclic_master_001",
       "applicationId": "app_website",
-      "grantedAt": "2026-08-03T08:34:44.339Z"
+      "grantedAt": "2026-09-08T20:44:47.400Z"
+    },
+    {
+      "id": "access_usr_fingerclic_master_001_app_nexus",
+      "userId": "usr_fingerclic_master_001",
+      "applicationId": "app_nexus",
+      "grantedAt": "2026-09-08T21:13:34.259Z"
     }
   ],
   "LoginHistory": [
     {
-      "id": "loginhistory_o2fhx9em_1785749407998",
-      "createdAt": "2026-08-03T09:30:07.998Z",
-      "updatedAt": "2026-08-03T09:30:07.998Z",
+      "id": "loginhistory_37o6lh9a_1788902069236",
+      "createdAt": "2026-09-08T21:14:29.236Z",
+      "updatedAt": "2026-09-08T21:14:29.236Z",
       "userId": "usr_fingerclic_master_001",
       "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36",
+      "userAgent": "node",
       "browser": "Chrome",
-      "os": "Windows",
+      "os": "macOS",
+      "city": "Paris",
+      "country": "France",
+      "success": true
+    },
+    {
+      "id": "loginhistory_8x01feta_1788902031361",
+      "createdAt": "2026-09-08T21:13:51.361Z",
+      "updatedAt": "2026-09-08T21:13:51.361Z",
+      "userId": "usr_fingerclic_master_001",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "node",
+      "browser": "Chrome",
+      "os": "macOS",
       "city": "Paris",
       "country": "France",
       "success": true
@@ -425,15 +466,37 @@
   ],
   "SecurityEvent": [
     {
-      "id": "securityevent_1ytizq8v_1785749408001",
-      "createdAt": "2026-08-03T09:30:08.001Z",
-      "updatedAt": "2026-08-03T09:30:08.001Z",
+      "id": "securityevent_j625rkt6_1788902069271",
+      "createdAt": "2026-09-08T21:14:29.271Z",
+      "updatedAt": "2026-09-08T21:14:29.271Z",
+      "userId": "usr_fingerclic_master_001",
+      "eventType": "OIDC_TOKEN_ISSUED",
+      "severity": "INFO",
+      "description": "Jeton d'accès OIDC émis avec succès (fingerclic-nexus)",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "node"
+    },
+    {
+      "id": "securityevent_ewnw2kep_1788902069241",
+      "createdAt": "2026-09-08T21:14:29.241Z",
+      "updatedAt": "2026-09-08T21:14:29.241Z",
       "userId": "usr_fingerclic_master_001",
       "eventType": "LOGIN_SUCCESS",
       "severity": "INFO",
-      "description": "Connexion réussie (Chrome / Windows)",
+      "description": "Connexion réussie (Chrome / macOS)",
       "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+      "userAgent": "node"
+    },
+    {
+      "id": "securityevent_tfwg7bpy_1788902031365",
+      "createdAt": "2026-09-08T21:13:51.365Z",
+      "updatedAt": "2026-09-08T21:13:51.365Z",
+      "userId": "usr_fingerclic_master_001",
+      "eventType": "LOGIN_SUCCESS",
+      "severity": "INFO",
+      "description": "Connexion réussie (Chrome / macOS)",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "node"
     },
     {
       "id": "sec_001",
@@ -443,7 +506,7 @@
       "description": "Connexion réussie depuis Chrome 128 (macOS)",
       "ipAddress": "88.167.24.102",
       "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     },
     {
       "id": "sec_002",
@@ -453,21 +516,22 @@
       "description": "Autorisation accordée à Creator Studio via OIDC",
       "ipAddress": "88.167.24.102",
       "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)",
-      "createdAt": "2026-08-03T06:34:44.340Z"
+      "createdAt": "2026-09-08T18:44:47.401Z"
     }
   ],
   "Device": [
     {
-      "id": "device_4lm27jri_1785749407998",
-      "createdAt": "2026-08-03T09:30:07.998Z",
-      "updatedAt": "2026-08-03T09:30:07.998Z",
+      "id": "device_vvbxiatb_1788902031360",
+      "createdAt": "2026-09-08T21:13:51.360Z",
+      "updatedAt": "2026-09-08T21:14:29.236Z",
       "userId": "usr_fingerclic_master_001",
-      "deviceId": "dev_1785749407998",
-      "name": "Windows (Chrome)",
+      "deviceId": "dev_1788902031360",
+      "name": "macOS (Chrome)",
       "type": "Desktop",
-      "os": "Windows",
+      "os": "macOS",
       "browser": "Chrome",
-      "ipAddress": "127.0.0.1"
+      "ipAddress": "127.0.0.1",
+      "lastActive": "2026-09-08T21:14:29.236Z"
     },
     {
       "id": "dev_001",
@@ -478,8 +542,8 @@
       "os": "macOS Sonoma",
       "browser": "Chrome 128",
       "ipAddress": "88.167.24.102",
-      "lastActive": "2026-08-03T08:34:44.339Z",
-      "createdAt": "2026-07-04T08:34:44.339Z"
+      "lastActive": "2026-09-08T20:44:47.400Z",
+      "createdAt": "2026-08-09T20:44:47.400Z"
     },
     {
       "id": "dev_002",
@@ -490,70 +554,40 @@
       "os": "iOS 17.5",
       "browser": "Mobile Safari",
       "ipAddress": "88.167.24.105",
-      "lastActive": "2026-08-03T04:34:44.340Z",
-      "createdAt": "2026-07-19T08:34:44.340Z"
+      "lastActive": "2026-09-08T16:44:47.401Z",
+      "createdAt": "2026-08-24T20:44:47.401Z"
     }
   ],
   "AuditLog": [
     {
-      "id": "auditlog_ceyqe2wu_1785837360926",
-      "createdAt": "2026-08-04T09:56:00.926Z",
-      "updatedAt": "2026-08-04T09:56:00.926Z",
+      "id": "auditlog_1nkqr80g_1788902069271",
+      "createdAt": "2026-09-08T21:14:29.271Z",
+      "updatedAt": "2026-09-08T21:14:29.271Z",
       "userId": "usr_fingerclic_master_001",
-      "action": "auth.token_rotated",
-      "details": "Rotation automatique du Refresh Token effectuée avec succès dans PostgreSQL via Prisma",
+      "action": "oauth.token_exchange",
+      "details": "Token émis pour le client OIDC fingerclic-nexus",
       "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+      "userAgent": "node"
     },
     {
-      "id": "auditlog_izczkk1p_1785835767010",
-      "createdAt": "2026-08-04T09:29:27.010Z",
-      "updatedAt": "2026-08-04T09:29:27.010Z",
-      "userId": "usr_fingerclic_master_001",
-      "action": "auth.token_rotated",
-      "details": "Rotation automatique du Refresh Token effectuée avec succès dans PostgreSQL via Prisma",
-      "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
-    },
-    {
-      "id": "auditlog_yen2sm2f_1785769063349",
-      "createdAt": "2026-08-03T14:57:43.349Z",
-      "updatedAt": "2026-08-03T14:57:43.349Z",
-      "userId": "usr_fingerclic_master_001",
-      "action": "auth.token_rotated",
-      "details": "Rotation automatique du Refresh Token effectuée avec succès dans PostgreSQL via Prisma",
-      "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
-    },
-    {
-      "id": "auditlog_scktnogo_1785758582601",
-      "createdAt": "2026-08-03T12:03:02.601Z",
-      "updatedAt": "2026-08-03T12:03:02.601Z",
-      "userId": "usr_fingerclic_master_001",
-      "action": "auth.token_rotated",
-      "details": "Rotation automatique du Refresh Token effectuée avec succès dans PostgreSQL via Prisma",
-      "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
-    },
-    {
-      "id": "auditlog_blaziu5g_1785750812852",
-      "createdAt": "2026-08-03T09:53:32.852Z",
-      "updatedAt": "2026-08-03T09:53:32.852Z",
-      "userId": "usr_fingerclic_master_001",
-      "action": "auth.token_rotated",
-      "details": "Rotation automatique du Refresh Token effectuée avec succès dans PostgreSQL via Prisma",
-      "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
-    },
-    {
-      "id": "auditlog_bk8404zg_1785749408001",
-      "createdAt": "2026-08-03T09:30:08.001Z",
-      "updatedAt": "2026-08-03T09:30:08.001Z",
+      "id": "auditlog_vnpjtygm_1788902069241",
+      "createdAt": "2026-09-08T21:14:29.241Z",
+      "updatedAt": "2026-09-08T21:14:29.241Z",
       "userId": "usr_fingerclic_master_001",
       "action": "auth.login",
       "details": "Connexion réussie via Prisma depuis Chrome",
       "ipAddress": "127.0.0.1",
-      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36"
+      "userAgent": "node"
+    },
+    {
+      "id": "auditlog_xzior16k_1788902031365",
+      "createdAt": "2026-09-08T21:13:51.365Z",
+      "updatedAt": "2026-09-08T21:13:51.365Z",
+      "userId": "usr_fingerclic_master_001",
+      "action": "auth.login",
+      "details": "Connexion réussie via Prisma depuis Chrome",
+      "ipAddress": "127.0.0.1",
+      "userAgent": "node"
     },
     {
       "id": "log_seed_001",
@@ -562,7 +596,7 @@
       "details": "Base de données PostgreSQL / Prisma initialisée avec succès pour Fingerclic Identify",
       "ipAddress": "127.0.0.1",
       "userAgent": "Prisma Client Bootstrapper",
-      "createdAt": "2026-08-03T08:34:44.339Z"
+      "createdAt": "2026-09-08T20:44:47.400Z"
     }
   ]
 }

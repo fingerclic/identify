@@ -51,6 +51,47 @@ export class OAuthService {
   }
 
   /**
+   * Retrieves an OAuth client by clientId (with alias support)
+   */
+  async getClient(clientId: string) {
+    if (!clientId) return null;
+    const normalized = clientId.trim();
+    const target = normalized === 'nexus' ? 'fingerclic-nexus' : normalized;
+    let client = await prisma.oAuthClient.findFirst({
+      where: { clientId: target }
+    });
+    if (!client && normalized !== target) {
+      client = await prisma.oAuthClient.findFirst({
+        where: { clientId: normalized }
+      });
+    }
+    return client;
+  }
+
+  /**
+   * Validates if a redirectUri is registered and authorized for the client
+   */
+  isRedirectUriAllowed(client: any, redirectUri: string): boolean {
+    if (!client || !client.redirectUris || !Array.isArray(client.redirectUris)) return false;
+    try {
+      const parsedReq = new URL(redirectUri);
+      return client.redirectUris.some((registeredUri: string) => {
+        try {
+          const parsedReg = new URL(registeredUri);
+          return (
+            parsedReq.origin === parsedReg.origin &&
+            parsedReq.pathname.replace(/\/$/, '') === parsedReg.pathname.replace(/\/$/, '')
+          );
+        } catch {
+          return registeredUri === redirectUri;
+        }
+      });
+    } catch {
+      return false;
+    }
+  }
+
+  /**
    * Creates an Authorization Code for OIDC Authorization Code Flow with PKCE
    * Persisted strictly in PostgreSQL via Prisma VerificationToken model.
    */
@@ -153,6 +194,45 @@ export class OAuthService {
 
       // Single-use token logic: Delete immediately from Prisma
       await prisma.verificationToken.delete({ where: { token: params.code } });
+
+      // Verify redirect_uri matches authorization request
+      if (meta.redirectUri) {
+        if (!params.redirectUri) {
+          throw new Error('Paramètre redirect_uri requis pour l\'échange du code');
+        }
+        try {
+          const reqUrl = new URL(params.redirectUri);
+          const metaUrl = new URL(meta.redirectUri);
+          if (
+            reqUrl.origin !== metaUrl.origin ||
+            reqUrl.pathname.replace(/\/$/, '') !== metaUrl.pathname.replace(/\/$/, '')
+          ) {
+            throw new Error('redirect_uri ne correspond pas à l\'URI d\'autorisation initiale');
+          }
+        } catch (e: any) {
+          if (e.message.includes('ne correspond pas')) throw e;
+          if (params.redirectUri !== meta.redirectUri) {
+            throw new Error('redirect_uri ne correspond pas à l\'URI d\'autorisation initiale');
+          }
+        }
+      }
+
+      // Verify client_id matches authorization request
+      if (meta.clientId) {
+        const passedClient = params.clientId === 'nexus' ? 'fingerclic-nexus' : params.clientId;
+        const metaClient = meta.clientId === 'nexus' ? 'fingerclic-nexus' : meta.clientId;
+        if (passedClient && passedClient !== metaClient) {
+          throw new Error('client_id ne correspond pas au client d\'autorisation initiale');
+        }
+      }
+
+      // Verify client_secret if provided and required
+      if (params.clientSecret) {
+        const client = await this.getClient(meta.clientId);
+        if (client && client.clientSecret && client.clientSecret !== params.clientSecret) {
+          throw new Error('client_secret invalide pour ce client OAuth');
+        }
+      }
 
       // PKCE Check if code_challenge was provided during authorize
       if (meta.codeChallenge) {

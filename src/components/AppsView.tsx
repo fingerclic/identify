@@ -10,6 +10,7 @@ import {
   Building2,
   TrendingUp,
   Globe,
+  Layers,
   ExternalLink,
   Key,
   Copy,
@@ -31,6 +32,7 @@ export const AppsView: React.FC = () => {
       case 'ACADEMY': return GraduationCap;
       case 'ORGANISATION': return Building2;
       case 'FIP': return TrendingUp;
+      case 'NEXUS': return Layers;
       default: return Globe;
     }
   };

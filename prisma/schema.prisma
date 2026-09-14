@@ -26,6 +26,7 @@ enum AppCode {
   ORGANISATION
   FIP
   WEBSITE
+  NEXUS
 }
 
 enum SecuritySeverity {

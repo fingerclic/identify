@@ -109,25 +109,64 @@ export const DeveloperSsoView: React.FC = () => {
       <div className="rounded-2xl border border-neutral-800 bg-neutral-950 p-6 space-y-4">
         <h2 className="text-sm font-semibold text-white flex items-center gap-2">
           <Server className="h-4 w-4 text-indigo-400" />
-          <span>Endpoints REST & OpenID Configuration</span>
+          <span>Endpoints Standard OpenID Connect & OAuth 2.0 (RFC 6749 / OIDC Core 1.0)</span>
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
           <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-3">
-            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">Authorize Endpoint</span>
-            <p className="mt-1 font-mono text-neutral-200">POST /api/sso/authorize</p>
+            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">OIDC Discovery</span>
+            <p className="mt-1 font-mono text-neutral-200">GET /.well-known/openid-configuration</p>
           </div>
           <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-3">
-            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">Token Endpoint</span>
-            <p className="mt-1 font-mono text-neutral-200">POST /api/login & POST /api/refresh</p>
+            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">JWKS Key Set</span>
+            <p className="mt-1 font-mono text-neutral-200">GET /.well-known/jwks.json</p>
           </div>
           <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-3">
-            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">UserInfo Endpoint</span>
-            <p className="mt-1 font-mono text-neutral-200">GET /api/me</p>
+            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">Authorize Endpoint (PKCE)</span>
+            <p className="mt-1 font-mono text-neutral-200">GET/POST /oauth/authorize</p>
           </div>
           <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-3">
-            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">Revocation Endpoint</span>
-            <p className="mt-1 font-mono text-neutral-200">DELETE /api/sessions</p>
+            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">Token Exchange (Single-use Code)</span>
+            <p className="mt-1 font-mono text-neutral-200">POST /oauth/token</p>
+          </div>
+          <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-3">
+            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">UserInfo Endpoint (Claims)</span>
+            <p className="mt-1 font-mono text-neutral-200">GET /oauth/userinfo</p>
+          </div>
+          <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-3">
+            <span className="font-mono text-[10px] text-indigo-400 uppercase font-bold">RP-Initiated Logout</span>
+            <p className="mt-1 font-mono text-neutral-200">GET /oauth/logout</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Dedicated NEXUS Client Card */}
+      <div className="rounded-2xl border border-indigo-500/30 bg-gradient-to-b from-indigo-950/40 to-neutral-950 p-6 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600/30 text-indigo-400">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-semibold text-white">Client OIDC Officiel : Fingerclic NEXUS</h3>
+              <p className="text-[11px] text-neutral-400">Identifiants configurés pour la relying party NEXUS</p>
+            </div>
+          </div>
+          <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/30 bg-emerald-950/60 px-2.5 py-1 text-[10px] font-semibold text-emerald-300">
+            Prêt pour intégration
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="rounded-xl border border-neutral-800/80 bg-neutral-900/60 p-3">
+            <span className="text-[10px] font-semibold text-neutral-400 uppercase">Client ID</span>
+            <p className="mt-0.5 font-mono text-indigo-300 font-bold select-all">fingerclic-nexus</p>
+            <p className="text-[10px] text-neutral-500 mt-1">Alias supporté : nexus</p>
+          </div>
+          <div className="rounded-xl border border-neutral-800/80 bg-neutral-900/60 p-3">
+            <span className="text-[10px] font-semibold text-neutral-400 uppercase">Type d'application</span>
+            <p className="mt-0.5 font-mono text-neutral-200">SPA / Web Server (PKCE S256)</p>
+            <p className="text-[10px] text-emerald-400 mt-1">Authentification stricte sans fallback</p>
           </div>
         </div>
       </div>

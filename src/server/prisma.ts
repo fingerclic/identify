@@ -150,7 +150,8 @@ function seedInitialData(): StoreSchema {
     { id: 'app_academy', code: 'ACADEMY', name: 'Academy', description: 'E-learning, certifications professionnelles et parcours de compétences', url: 'https://academy.fingerclic.com', iconName: 'GraduationCap', color: '#F59E0B', isSystem: true, createdAt: now },
     { id: 'app_organisation', code: 'ORGANISATION', name: 'Organisation', description: 'Gestion d\'entreprises, équipes, rôles et espaces de travail', url: 'https://org.fingerclic.com', iconName: 'Building2', color: '#6366F1', isSystem: true, createdAt: now },
     { id: 'app_fip', code: 'FIP', name: 'FIP (Finances)', description: 'Financement participatif, investissement et suivi des transactions', url: 'https://fip.fingerclic.com', iconName: 'TrendingUp', color: '#EC4899', isSystem: true, createdAt: now },
-    { id: 'app_website', code: 'WEBSITE', name: 'Portail Officiel', description: 'Portail institutionnel et vitrine globale Fingerclic', url: 'https://fingerclic.com', iconName: 'Globe', color: '#06B6D4', isSystem: true, createdAt: now }
+    { id: 'app_website', code: 'WEBSITE', name: 'Portail Officiel', description: 'Portail institutionnel et vitrine globale Fingerclic', url: 'https://fingerclic.com', iconName: 'Globe', color: '#06B6D4', isSystem: true, createdAt: now },
+    { id: 'app_nexus', code: 'NEXUS', name: 'NEXUS', description: 'Plateforme centrale d\'orchestration et hub applicatif unifié de l\'écosystème Fingerclic', url: 'https://nexus.fingerclic.com', iconName: 'Layers', color: '#6366F1', isSystem: true, createdAt: now }
   ];
 
   const applicationAccesses = apps.map(app => ({
@@ -279,6 +280,22 @@ function seedInitialData(): StoreSchema {
     createdAt: now
   };
 
+  const nexusOAuthClient = {
+    id: 'client_nexus_001',
+    clientId: 'fingerclic-nexus',
+    clientSecret: 'fc_sec_nexus_live_7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
+    name: 'Fingerclic NEXUS',
+    redirectUris: [
+      'https://fingerclic.com/auth/callback',
+      'https://nexus.fingerclic.com/auth/callback',
+      'http://localhost:3000/auth/callback',
+      'http://localhost:5173/auth/callback'
+    ],
+    appCode: 'NEXUS',
+    isSystem: true,
+    createdAt: now
+  };
+
   const initialStore: StoreSchema = {
     User: [superAdminUser],
     Profile: [superAdminProfile],
@@ -294,7 +311,7 @@ function seedInitialData(): StoreSchema {
     UserRole: [userRoleLink],
     Organization: [organization],
     OrganizationMember: [orgMember],
-    OAuthClient: [],
+    OAuthClient: [nexusOAuthClient],
     OAuthAuthorization: [],
     ApiKey: apiKeys,
     Application: apps,
@@ -315,6 +332,81 @@ class PrismaEngine {
 
   constructor() {
     this.db = loadDb();
+    this.ensureNexusData();
+  }
+
+  private ensureNexusData() {
+    const now = new Date().toISOString();
+    if (!this.db.OAuthClient) this.db.OAuthClient = [];
+    
+    // Check if fingerclic-nexus client exists
+    const existingClient = this.db.OAuthClient.find(c => c.clientId === 'fingerclic-nexus');
+    if (!existingClient) {
+      this.db.OAuthClient.push({
+        id: 'client_nexus_001',
+        clientId: 'fingerclic-nexus',
+        clientSecret: 'fc_sec_nexus_live_7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
+        name: 'Fingerclic NEXUS',
+        redirectUris: [
+          'https://fingerclic.com/auth/callback',
+          'https://nexus.fingerclic.com/auth/callback',
+          'http://localhost:3000/auth/callback',
+          'http://localhost:5173/auth/callback'
+        ],
+        appCode: 'NEXUS',
+        isSystem: true,
+        createdAt: now
+      });
+      this.persist();
+    } else {
+      const targetUris = [
+        'https://fingerclic.com/auth/callback',
+        'https://nexus.fingerclic.com/auth/callback',
+        'http://localhost:3000/auth/callback',
+        'http://localhost:5173/auth/callback'
+      ];
+      let updated = false;
+      for (const u of targetUris) {
+        if (!existingClient.redirectUris.includes(u)) {
+          existingClient.redirectUris.push(u);
+          updated = true;
+        }
+      }
+      if (updated) this.persist();
+    }
+
+    // Check if NEXUS application exists
+    if (!this.db.Application) this.db.Application = [];
+    let nexusApp = this.db.Application.find(a => a.code === 'NEXUS');
+    if (!nexusApp) {
+      nexusApp = {
+        id: 'app_nexus',
+        code: 'NEXUS',
+        name: 'NEXUS',
+        description: 'Plateforme centrale d\'orchestration et hub applicatif unifié de l\'écosystème Fingerclic',
+        url: 'https://nexus.fingerclic.com',
+        iconName: 'Layers',
+        color: '#6366F1',
+        isSystem: true,
+        createdAt: now
+      };
+      this.db.Application.push(nexusApp);
+
+      if (this.db.ApplicationAccess && this.db.User) {
+        for (const u of this.db.User) {
+          const hasAccess = this.db.ApplicationAccess.some(acc => acc.userId === u.id && acc.applicationId === nexusApp.id);
+          if (!hasAccess) {
+            this.db.ApplicationAccess.push({
+              id: `access_${u.id}_${nexusApp.id}`,
+              userId: u.id,
+              applicationId: nexusApp.id,
+              grantedAt: now
+            });
+          }
+        }
+      }
+      this.persist();
+    }
   }
 
   private persist() {
@@ -393,19 +485,31 @@ class PrismaEngine {
       return this.db[modelName];
     };
 
+    const matchesWhere = (item: any, where: any): boolean => {
+      if (!where) return true;
+      if (where.OR && Array.isArray(where.OR)) {
+        const orMatches = where.OR.some((subWhere: any) => matchesWhere(item, subWhere));
+        if (!orMatches) return false;
+      }
+      for (const k of Object.keys(where)) {
+        if (k === 'OR' || k === 'AND' || k === 'NOT') continue;
+        if (where[k] === undefined) continue;
+        if (item[k] !== where[k]) return false;
+      }
+      return true;
+    };
+
     return {
       findUnique: async (args: { where: any; include?: any }) => {
         const list = getCollection();
-        const found = list.find(item => {
-          return Object.keys(args.where).every(k => item[k] === args.where[k]);
-        });
+        const found = list.find(item => matchesWhere(item, args.where));
         return found ? this.filterInclude(modelName, found, args.include) : null;
       },
       findFirst: async (args?: { where?: any; include?: any; orderBy?: any }) => {
         const list = getCollection();
         let items = [...list];
         if (args?.where) {
-          items = items.filter(item => Object.keys(args.where).every(k => item[k] === args.where[k]));
+          items = items.filter(item => matchesWhere(item, args.where));
         }
         if (args?.orderBy) {
           const key = Object.keys(args.orderBy)[0];
@@ -422,12 +526,7 @@ class PrismaEngine {
         const list = getCollection();
         let items = [...list];
         if (args?.where) {
-          items = items.filter(item => {
-            return Object.keys(args.where).every(k => {
-              if (args.where[k] === undefined) return true;
-              return item[k] === args.where[k];
-            });
-          });
+          items = items.filter(item => matchesWhere(item, args.where));
         }
         if (args?.orderBy) {
           const key = Object.keys(args.orderBy)[0];

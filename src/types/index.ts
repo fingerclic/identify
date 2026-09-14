@@ -8,7 +8,8 @@ export type FingerclicAppCode =
   | 'ACADEMY'
   | 'ORGANISATION'
   | 'FIP'
-  | 'WEBSITE';
+  | 'WEBSITE'
+  | 'NEXUS';
 
 export interface FingerclicApp {
   id: string;

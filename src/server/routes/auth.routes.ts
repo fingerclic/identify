@@ -84,6 +84,8 @@ authRouter.post('/register', authRateLimiter, async (req: Request, res: Response
 
     const authorizedApps = await appService.getAppsForUser(result.user.id);
 
+    res.setHeader('Set-Cookie', `fingerclic_session=${result.tokens.accessToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
+
     return res.status(201).json({
       message: 'Inscription réussie',
       ...result,
@@ -111,6 +113,8 @@ authRouter.post('/login', authRateLimiter, async (req: Request, res: Response) =
 
     const authorizedApps = await appService.getAppsForUser(result.user.id);
 
+    res.setHeader('Set-Cookie', `fingerclic_session=${result.tokens.accessToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
+
     return res.json({
       message: 'Connexion réussie',
       ...result,
@@ -134,6 +138,8 @@ authRouter.post('/logout', authenticateJwt, async (req: AuthenticatedRequest, re
     if (sessionId) {
       await sessionRepo.revokeSession(sessionId, userId);
     }
+
+    res.setHeader('Set-Cookie', 'fingerclic_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');
 
     await logAudit(userId, 'auth.logout', 'Déconnexion manuelle de la session via Prisma', meta.ipAddress, meta.userAgent);
     return res.json({ message: 'Déconnexion réussie' });

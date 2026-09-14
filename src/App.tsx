@@ -9,10 +9,21 @@ import { SecurityView } from './components/SecurityView';
 import { SessionsView } from './components/SessionsView';
 import { AppsView } from './components/AppsView';
 import { DeveloperSsoView } from './components/DeveloperSsoView';
+import { OAuthConsentCard } from './components/OAuthConsentCard';
 import { AlertCircle, CheckCircle2, X } from 'lucide-react';
 
 const AppContent: React.FC = () => {
   const { user, isLoading, currentTab, error, successMessage, clearNotifications } = useAuth();
+
+  const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+  const isOAuthFlow = urlParams.get('oauth_flow') === '1';
+  const clientId = urlParams.get('client_id') || '';
+  const redirectUri = urlParams.get('redirect_uri') || '';
+  const scope = urlParams.get('scope') || 'openid profile email';
+  const state = urlParams.get('state') || undefined;
+  const codeChallenge = urlParams.get('code_challenge') || undefined;
+  const codeChallengeMethod = urlParams.get('code_challenge_method') || undefined;
+  const nonce = urlParams.get('nonce') || undefined;
 
   if (isLoading) {
     return (
@@ -59,6 +70,18 @@ const AppContent: React.FC = () => {
       {!user ? (
         <main className="mx-auto max-w-7xl px-4 py-8">
           <AuthCard />
+        </main>
+      ) : isOAuthFlow && clientId && redirectUri ? (
+        <main className="mx-auto max-w-7xl px-4 py-8">
+          <OAuthConsentCard
+            clientId={clientId}
+            redirectUri={redirectUri}
+            scope={scope}
+            state={state}
+            codeChallenge={codeChallenge}
+            codeChallengeMethod={codeChallengeMethod}
+            nonce={nonce}
+          />
         </main>
       ) : (
         <div className="mx-auto flex max-w-7xl flex-col lg:flex-row min-h-[calc(100vh-4rem)]">

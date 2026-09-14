@@ -2,8 +2,9 @@ import { Router, Request, Response } from 'express';
 import { z } from 'zod';
 import { OAuthService } from '../services/oauth.service';
 import { UserService } from '../services/user.service';
-import { authenticateJwt, AuthenticatedRequest } from '../middleware/auth.middleware';
-import { generateAccessToken } from '../auth/jwt';
+import { authenticateJwt, extractToken, AuthenticatedRequest } from '../middleware/auth.middleware';
+import { verifyAccessToken, isTokenBlacklisted, generateAccessToken } from '../auth/jwt';
+import { prisma } from '../prisma';
 import { logAudit } from '../security/audit';
 import { logSecurityEvent } from '../security/events';
 
@@ -34,35 +35,114 @@ oauthRouter.get('/.well-known/jwks.json', (_req: Request, res: Response) => {
   return res.json(oauthService.getJwks());
 });
 
-// 3. GET & POST /oauth/authorize
+// 3. GET & POST /oauth/authorize (OIDC Authorization Endpoint)
 const handleAuthorize = async (req: Request, res: Response) => {
   try {
     const client_id = (req.query.client_id || req.body.client_id) as string;
     const redirect_uri = (req.query.redirect_uri || req.body.redirect_uri) as string;
     const response_type = (req.query.response_type || req.body.response_type) as string;
-    const scope = (req.query.scope || req.body.scope) as string;
+    const scope = (req.query.scope || req.body.scope || 'openid profile email') as string;
     const state = (req.query.state || req.body.state) as string;
     const code_challenge = (req.query.code_challenge || req.body.code_challenge) as string;
     const code_challenge_method = (req.query.code_challenge_method || req.body.code_challenge_method) as string;
     const nonce = (req.query.nonce || req.body.nonce) as string;
 
+    // 1. Validate required parameters
     if (!client_id || !redirect_uri) {
-      return res.status(400).json({ error: 'client_id et redirect_uri sont obligatoires' });
+      return res.status(400).json({
+        error: 'invalid_request',
+        error_description: 'client_id et redirect_uri sont obligatoires'
+      });
     }
 
     if (response_type !== 'code') {
-      return res.status(400).json({ error: 'response_type non supporté. Seul `code` est autorisé (PKCE/Authorization Code)' });
+      return res.status(400).json({
+        error: 'unsupported_response_type',
+        error_description: 'response_type non supporté. Seul `code` est autorisé (PKCE / Authorization Code)'
+      });
     }
 
-    // Default system user for authorization code simulation if not logged in
-    const userId = (req as AuthenticatedRequest).user?.userId || 'usr_fingerclic_master_001';
+    // 2. Validate client
+    const client = await oauthService.getClient(client_id);
+    if (!client) {
+      return res.status(400).json({
+        error: 'invalid_client',
+        error_description: `Client OAuth non reconnu : ${client_id}`
+      });
+    }
 
+    // 3. Validate redirect_uri strictly against registered URIs
+    const isUriAllowed = oauthService.isRedirectUriAllowed(client, redirect_uri);
+    if (!isUriAllowed) {
+      return res.status(400).json({
+        error: 'invalid_request',
+        error_description: `redirect_uri non autorisée pour le client ${client.name} : ${redirect_uri}`
+      });
+    }
+
+    // 4. Validate PKCE code_challenge_method if provided
+    if (code_challenge && code_challenge_method && !['S256', 'plain'].includes(code_challenge_method)) {
+      return res.status(400).json({
+        error: 'invalid_request',
+        error_description: 'code_challenge_method non supporté. Seuls S256 et plain sont acceptés'
+      });
+    }
+
+    // 5. Authenticate user strictly: check Bearer header, cookie, or token parameter
+    const token = extractToken(req);
+    let authenticatedUser: any = null;
+
+    if (token) {
+      const blacklisted = await isTokenBlacklisted(token);
+      if (!blacklisted) {
+        const decoded = verifyAccessToken(token);
+        if (decoded?.userId) {
+          const user = await prisma.user.findUnique({
+            where: { id: decoded.userId }
+          });
+          if (user) {
+            authenticatedUser = user;
+          }
+        }
+      }
+    }
+
+    // 6. IF USER IS NOT AUTHENTICATED: NEVER USE A FALLBACK!
+    if (!authenticatedUser) {
+      const isHtmlBrowserRequest =
+        req.method === 'GET' &&
+        (req.accepts('html') || !req.headers.accept?.includes('application/json'));
+
+      if (isHtmlBrowserRequest) {
+        const issuerUrl = getIssuerUrl(req);
+        const loginUrl = new URL('/', issuerUrl);
+        loginUrl.searchParams.set('oauth_flow', '1');
+        loginUrl.searchParams.set('client_id', client.clientId);
+        loginUrl.searchParams.set('redirect_uri', redirect_uri);
+        loginUrl.searchParams.set('response_type', 'code');
+        if (scope) loginUrl.searchParams.set('scope', scope);
+        if (state) loginUrl.searchParams.set('state', state);
+        if (code_challenge) loginUrl.searchParams.set('code_challenge', code_challenge);
+        if (code_challenge_method) loginUrl.searchParams.set('code_challenge_method', code_challenge_method);
+        if (nonce) loginUrl.searchParams.set('nonce', nonce);
+
+        return res.redirect(loginUrl.toString());
+      }
+
+      return res.status(401).json({
+        error: 'login_required',
+        error_description: 'Authentification requise sur Identify avant émission du code d\'autorisation',
+        login_url: `/?oauth_flow=1&client_id=${encodeURIComponent(client.clientId)}&redirect_uri=${encodeURIComponent(redirect_uri)}`
+      });
+    }
+
+    // 7. USER IS REAL & AUTHENTICATED: Issue Authorization Code for the authenticated user
     const code = await oauthService.createAuthorizationCode({
-      userId,
-      clientId: client_id,
+      userId: authenticatedUser.id,
+      clientId: client.clientId,
       redirectUri: redirect_uri,
       codeChallenge: code_challenge,
-      codeChallengeMethod: code_challenge_method,
+      codeChallengeMethod: code_challenge_method || (code_challenge ? 'S256' : undefined),
       scope,
       nonce
     });
@@ -71,7 +151,7 @@ const handleAuthorize = async (req: Request, res: Response) => {
     targetUrl.searchParams.set('code', code);
     if (state) targetUrl.searchParams.set('state', state);
 
-    if (req.method === 'GET' && req.accepts('html')) {
+    if (req.method === 'GET' && (req.accepts('html') || !req.headers.accept?.includes('application/json'))) {
       return res.redirect(targetUrl.toString());
     }
 
@@ -161,8 +241,9 @@ oauthRouter.post('/oauth/revoke', async (req: Request, res: Response) => {
   }
 });
 
-// 8. GET /oauth/logout
+// 8. GET /oauth/logout (OIDC RP-Initiated Logout)
 oauthRouter.get('/oauth/logout', (req: Request, res: Response) => {
+  res.setHeader('Set-Cookie', 'fingerclic_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');
   const postLogoutRedirectUri = req.query.post_logout_redirect_uri as string;
   if (postLogoutRedirectUri) {
     return res.redirect(postLogoutRedirectUri);

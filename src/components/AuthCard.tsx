@@ -76,10 +76,30 @@ export const AuthCard: React.FC = () => {
     setIsSubmitting(false);
   };
 
+  const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+  const isOAuthFlow = urlParams.get('oauth_flow') === '1';
+  const oauthClientId = urlParams.get('client_id');
+  const oauthClientName = oauthClientId?.includes('nexus') ? 'Fingerclic NEXUS' : (oauthClientId || 'votre application');
+
   return (
     <div id="auth-portal" className="flex min-h-[80vh] items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         
+        {/* OAuth Flow Notice */}
+        {isOAuthFlow && (
+          <div className="flex items-center gap-3 rounded-2xl border border-indigo-500/30 bg-indigo-950/60 p-4 shadow-lg backdrop-blur-md">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-600/30 text-indigo-400 shrink-0">
+              <ShieldCheck className="h-5 w-5" />
+            </div>
+            <div>
+              <p className="text-xs font-semibold text-white">Connexion requise pour continuer</p>
+              <p className="text-[11px] text-neutral-400">
+                Connectez-vous pour autoriser l'accès à <span className="text-indigo-300 font-medium">{oauthClientName}</span>
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Brand Header */}
         <div className="text-center">
           <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-violet-500 p-0.5 shadow-xl shadow-indigo-500/20">

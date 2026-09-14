@@ -127,6 +127,16 @@ export const seedData: SeedData = {
       iconName: 'Globe',
       color: '#06B6D4',
       isSystem: true
+    },
+    {
+      id: 'app_nexus',
+      code: 'NEXUS',
+      name: 'NEXUS',
+      description: 'Plateforme centrale d\'orchestration et hub applicatif unifié de l\'écosystème Fingerclic',
+      url: 'https://nexus.fingerclic.com',
+      iconName: 'Layers',
+      color: '#6366F1',
+      isSystem: true
     }
   ]
 };
@@ -396,6 +406,37 @@ export async function main() {
     });
   }
   console.log('✅ Granted Application Access to Super Admin for all apps');
+
+  // 6. Seed / Upsert NEXUS OAuth Client
+  await prisma.oAuthClient.upsert({
+    where: { clientId: 'fingerclic-nexus' },
+    update: {
+      name: 'Fingerclic NEXUS',
+      redirectUris: [
+        'https://fingerclic.com/auth/callback',
+        'https://nexus.fingerclic.com/auth/callback',
+        'http://localhost:3000/auth/callback',
+        'http://localhost:5173/auth/callback'
+      ],
+      appCode: 'NEXUS' as AppCode,
+      isSystem: true
+    },
+    create: {
+      id: 'client_nexus_001',
+      clientId: 'fingerclic-nexus',
+      clientSecret: 'fc_sec_nexus_live_7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
+      name: 'Fingerclic NEXUS',
+      redirectUris: [
+        'https://fingerclic.com/auth/callback',
+        'https://nexus.fingerclic.com/auth/callback',
+        'http://localhost:3000/auth/callback',
+        'http://localhost:5173/auth/callback'
+      ],
+      appCode: 'NEXUS' as AppCode,
+      isSystem: true
+    }
+  });
+  console.log('✅ Seeded OAuthClient for Fingerclic NEXUS');
 
   console.log('🎉 Seeding completed successfully!');
 }
