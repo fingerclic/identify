@@ -1,4 +1,5 @@
 import { prisma } from '../prisma';
+import { randomBytes, randomUUID } from 'node:crypto';
 
 export class SessionRepository {
   async createSession(data: {
@@ -22,21 +23,21 @@ export class SessionRepository {
     else if (ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
     else if (ua.includes('Linux')) os = 'Linux';
 
-    const token = 'sess_' + Math.random().toString(36).substring(2, 11) + '_' + Date.now();
+    const token = 'sess_' + randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + 7 * 86400000);
 
     const session = await prisma.session.create({
       data: {
         userId: data.userId,
         token,
-        ipAddress: data.ipAddress || '88.167.24.102',
-        userAgent: data.userAgent || 'Mozilla/5.0 Browser',
+        ipAddress: data.ipAddress || 'unknown',
+        userAgent: data.userAgent || 'unknown',
         deviceType,
         browser,
         os,
-        city: 'Paris',
-        country: 'France',
-        location: 'Paris, France',
+        city: null,
+        country: null,
+        location: 'Unknown',
         isCurrent: true,
         expiresAt
       }
@@ -59,7 +60,7 @@ export class SessionRepository {
       await prisma.device.create({
         data: {
           userId: data.userId,
-          deviceId: 'dev_' + Date.now(),
+          deviceId: 'dev_' + randomUUID(),
           name: `${os} (${browser})`,
           type: deviceType,
           os,
@@ -77,8 +78,8 @@ export class SessionRepository {
         userAgent: session.userAgent,
         browser,
         os,
-        city: 'Paris',
-        country: 'France',
+        city: null,
+        country: null,
         success: true
       }
     });
@@ -143,7 +144,7 @@ export class SessionRepository {
   }
 
   async createVerificationToken(userId: string, type: 'EMAIL_VERIFY' | 'PASSWORD_RESET') {
-    const token = Math.random().toString(36).substring(2, 10) + Math.random().toString(36).substring(2, 10);
+    const token = randomBytes(32).toString('hex');
     const expiresAt = new Date(Date.now() + 3600000);
 
     await prisma.verificationToken.create({
