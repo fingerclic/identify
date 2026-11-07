@@ -35,71 +35,47 @@ export class UserRepository {
     fullName: string;
     phone?: string;
   }) {
-    const defaultRole = await prisma.role.findFirst({ where: { type: 'USER' } });
-    const allApps = await prisma.application.findMany();
+    const defaultRole = await prisma.role.findUnique({ where: { name: 'USER' } });
+    if (!defaultRole) {
+      throw new Error('Identify reference data missing: USER role must be seeded before registration.');
+    }
 
+    // A single real PostgreSQL transaction (nested writes) prevents half-created
+    // identities. Access to individual applications must be granted explicitly.
     const newUser = await prisma.user.create({
       data: {
         email: data.email.toLowerCase().trim(),
         passwordHash: data.passwordHash,
         fullName: data.fullName,
-        phone: data.phone || '',
-        bio: 'Membre de l\'écosystème Fingerclic',
+        phone: data.phone?.trim() || null,
+        bio: 'Membre de l’écosystème Fingerclic',
         emailVerified: false,
         language: 'fr',
-        timezone: 'Europe/Paris'
-      }
-    });
-
-    // Create connected sub-records as mandated: Profile, UserPreference, NotificationPreference
-    await prisma.profile.create({
-      data: {
-        userId: newUser.id,
-        city: 'Paris',
-        country: 'France',
-        company: 'Fingerclic Member',
-        jobTitle: 'Utilisateur'
-      }
-    });
-
-    await prisma.userPreference.create({
-      data: {
-        userId: newUser.id,
-        theme: 'dark',
-        marketingEmails: true,
-        securityAlerts: true,
-        twoFactorEnabled: false
-      }
-    });
-
-    await prisma.notificationPreference.create({
-      data: {
-        userId: newUser.id,
-        emailNotify: true,
-        smsNotify: false,
-        pushNotify: true,
-        loginAlerts: true
-      }
-    });
-
-    if (defaultRole) {
-      await prisma.userRole.create({
-        data: {
-          userId: newUser.id,
-          roleId: defaultRole.id
+        timezone: 'UTC',
+        profile: {
+          create: { city: null, country: null, company: null, jobTitle: null }
+        },
+        userPreference: {
+          create: {
+            theme: 'dark',
+            marketingEmails: false,
+            securityAlerts: true,
+            twoFactorEnabled: false
+          }
+        },
+        notificationPreference: {
+          create: {
+            emailNotify: true,
+            smsNotify: false,
+            pushNotify: true,
+            loginAlerts: true
+          }
+        },
+        userRoles: {
+          create: [{ roleId: defaultRole.id }]
         }
-      });
-    }
-
-    // Grant default access to all applications
-    for (const app of allApps) {
-      await prisma.applicationAccess.create({
-        data: {
-          userId: newUser.id,
-          applicationId: app.id
-        }
-      });
-    }
+      }
+    });
 
     return this.findById(newUser.id);
   }
