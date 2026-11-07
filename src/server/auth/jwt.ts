@@ -1,8 +1,19 @@
 import jwt from 'jsonwebtoken';
 import { tokenStore } from './tokenStore';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fingerclic_identify_jwt_secret_key_2026_auth_provider_prod';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'fingerclic_identify_refresh_secret_key_2026_auth_provider_prod';
+function requiredSigningSecret(name: 'JWT_SECRET' | 'JWT_REFRESH_SECRET'): string {
+  const value = process.env[name];
+  if (!value || value.length < 32) {
+    throw new Error(`Identify configuration error: ${name} must be set to a unique, strong secret (at least 32 characters).`);
+  }
+  return value;
+}
+
+const JWT_SECRET = requiredSigningSecret('JWT_SECRET');
+const JWT_REFRESH_SECRET = requiredSigningSecret('JWT_REFRESH_SECRET');
+if (JWT_SECRET === JWT_REFRESH_SECRET) {
+  throw new Error('Identify configuration error: access and refresh signing secrets must differ.');
+}
 
 export interface JwtPayload {
   userId: string;
