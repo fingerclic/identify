@@ -241,49 +241,19 @@ oauthRouter.post('/oauth/revoke', async (req: Request, res: Response) => {
   }
 });
 
-// 8. GET /oauth/logout (OIDC RP-Initiated Logout)
-oauthRouter.get('/oauth/logout', (req: Request, res: Response) => {
-  res.setHeader('Set-Cookie', 'fingerclic_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0');
-  const postLogoutRedirectUri = req.query.post_logout_redirect_uri as string;
-  if (postLogoutRedirectUri) {
-    return res.redirect(postLogoutRedirectUri);
-  }
-  return res.json({ message: 'Session OIDC fermée avec succès.' });
+// 8. GET /oauth/logout (legacy logout endpoint)
+// No unvalidated post_logout_redirect_uri is accepted.
+oauthRouter.get('/oauth/logout', (_req: Request, res: Response) => {
+  res.setHeader('Set-Cookie', `fingerclic_session=; Path=/; HttpOnly; SameSite=Lax; Max-Age=0${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`);
+  res.setHeader('Cache-Control', 'no-store');
+  return res.json({ message: 'Cookie de session supprimé. Révocation des jetons via /api/logout.' });
 });
 
-// 9. POST /api/sso/authorize (Cross-app Ecosystem Assertion)
-oauthRouter.post('/api/sso/authorize', authenticateJwt, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const userId = req.user!.userId;
-    const { appCode } = req.body;
-
-    if (!appCode) {
-      return res.status(400).json({ error: 'Code d\'application requis (ex: MARKETPLACE, CREATOR, ADMIN)' });
-    }
-
-    const user = await userService.getUserProfile(userId);
-    if (!user) return res.status(404).json({ error: 'Utilisateur introuvable' });
-
-    const userRole = (user.userRoles as any)?.[0]?.role?.name || 'USER';
-
-    const ssoToken = generateAccessToken({
-      userId: user.id,
-      email: user.email,
-      role: userRole,
-      sessionId: req.user!.sessionId
-    });
-
-    const meta = getClientMeta(req);
-    await logAudit(userId, 'sso.authorize', `SSO assertion autorisée pour la plateforme ${appCode} via Prisma`, meta.ipAddress, meta.userAgent);
-    await logSecurityEvent(userId, 'SSO_AUTHORIZATION', 'INFO', `Autorisation OIDC/SSO générée pour ${appCode}`, meta.ipAddress, meta.userAgent);
-
-    return res.json({
-      ssoToken,
-      expiresInSeconds: 300,
-      targetApp: appCode,
-      ssoRedirectUrl: `https://${appCode.toLowerCase()}.fingerclic.com/auth/callback?sso_token=${ssoToken}`
-    });
-  } catch (err: any) {
-    return res.status(500).json({ error: 'Erreur lors de l\'autorisation SSO' });
-  }
+// 9. POST /api/sso/authorize — unsafe legacy flow disabled.
+// Use OIDC Authorization Code with PKCE after the provider is fully hardened.
+oauthRouter.post('/api/sso/authorize', authenticateJwt, (_req: AuthenticatedRequest, res: Response) => {
+  res.setHeader('Cache-Control', 'no-store');
+  return res.status(501).json({
+    error: 'Legacy token-in-URL SSO is disabled. Use the OIDC authorization-code flow.'
+  });
 });

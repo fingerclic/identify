@@ -84,11 +84,12 @@ authRouter.post('/register', authRateLimiter, async (req: Request, res: Response
 
     const authorizedApps = await appService.getAppsForUser(result.user.id);
 
-    res.setHeader('Set-Cookie', `fingerclic_session=${result.tokens.accessToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
+    res.setHeader('Set-Cookie', `fingerclic_session=${result.tokens.accessToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=900${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`);
 
+    const { verificationTokenSimulated: _internalVerificationToken, ...safeResult } = result;
     return res.status(201).json({
       message: 'Inscription réussie',
-      ...result,
+      ...safeResult,
       authorizedApps
     });
   } catch (err: any) {
@@ -113,7 +114,7 @@ authRouter.post('/login', authRateLimiter, async (req: Request, res: Response) =
 
     const authorizedApps = await appService.getAppsForUser(result.user.id);
 
-    res.setHeader('Set-Cookie', `fingerclic_session=${result.tokens.accessToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=604800`);
+    res.setHeader('Set-Cookie', `fingerclic_session=${result.tokens.accessToken}; Path=/; HttpOnly; SameSite=Lax; Max-Age=900${process.env.NODE_ENV === 'production' ? '; Secure' : ''}`);
 
     return res.json({
       message: 'Connexion réussie',
@@ -164,23 +165,13 @@ authRouter.post('/refresh', async (req: Request, res: Response) => {
 });
 
 // 5. POST /api/forgot-password
+// A delivery provider is not yet configured. Never return a reset code to a caller.
 authRouter.post('/forgot-password', authRateLimiter, async (req: Request, res: Response) => {
   try {
-    const body = ForgotPasswordSchema.parse(req.body);
-    const meta = getClientMeta(req);
-    const user = await prisma.user.findUnique({ where: { email: body.email.toLowerCase().trim() } });
-
-    if (!user) {
-      return res.json({ message: 'Si l\'adresse e-mail existe, un lien de réinitialisation a été généré.' });
-    }
-
-    const resetToken = await sessionRepo.createVerificationToken(user.id, 'PASSWORD_RESET');
-    await logAudit(user.id, 'auth.forgot_password', 'Demande de réinitialisation de mot de passe via Prisma', meta.ipAddress, meta.userAgent);
-
-    return res.json({
-      message: 'Un lien et un code de réinitialisation ont été générés.',
-      simulatedResetCode: resetToken,
-      resetUrl: `/reset-password?token=${resetToken}`
+    ForgotPasswordSchema.parse(req.body);
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(503).json({
+      error: 'La réinitialisation par e-mail est temporairement indisponible. Contactez le support.'
     });
   } catch (err: any) {
     if (err instanceof z.ZodError) {

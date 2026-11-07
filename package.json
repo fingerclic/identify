@@ -9,7 +9,14 @@
     "start": "node dist/server.cjs",
     "preview": "vite preview",
     "clean": "rm -rf dist server.cjs",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "db:generate": "prisma generate",
+    "db:validate": "prisma validate",
+    "db:migrate:create": "prisma migrate dev --create-only --name identify_init",
+    "db:migrate:deploy": "prisma migrate deploy",
+    "db:migrate:status": "prisma migrate status",
+    "db:seed:reference": "tsx prisma/seed.ts",
+    "db:preflight": "tsx scripts/db-preflight.ts"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

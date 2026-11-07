@@ -72,23 +72,10 @@ export class OAuthService {
    * Validates if a redirectUri is registered and authorized for the client
    */
   isRedirectUriAllowed(client: any, redirectUri: string): boolean {
-    if (!client || !client.redirectUris || !Array.isArray(client.redirectUris)) return false;
-    try {
-      const parsedReq = new URL(redirectUri);
-      return client.redirectUris.some((registeredUri: string) => {
-        try {
-          const parsedReg = new URL(registeredUri);
-          return (
-            parsedReq.origin === parsedReg.origin &&
-            parsedReq.pathname.replace(/\/$/, '') === parsedReg.pathname.replace(/\/$/, '')
-          );
-        } catch {
-          return registeredUri === redirectUri;
-        }
-      });
-    } catch {
-      return false;
-    }
+    if (!client || !Array.isArray(client.redirectUris)) return false;
+    // OAuth redirect URIs are an exact string match: no path normalization,
+    // ignored query strings, or origin-only comparisons.
+    return client.redirectUris.some((registeredUri: string) => registeredUri === redirectUri);
   }
 
   /**
@@ -392,7 +379,8 @@ export class OAuthService {
   async introspectToken(token: string) {
     try {
       const jwt = await import('jsonwebtoken');
-      const JWT_SECRET = process.env.JWT_SECRET || 'fingerclic_identify_jwt_secret_key_2026_auth_provider_prod';
+      const JWT_SECRET = process.env.JWT_SECRET;
+      if (!JWT_SECRET) throw new Error('Missing JWT_SECRET');
       const decoded: any = jwt.default.verify(token, JWT_SECRET);
 
       return {
