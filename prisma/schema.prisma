@@ -52,7 +52,7 @@ model User {
   bio              String?
   emailVerified    Boolean           @default(false)
   language         String            @default("fr")
-  timezone         String            @default("Europe/Paris")
+  timezone         String            @default("UTC")
   twoFactorEnabled Boolean           @default(false)
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
@@ -82,11 +82,11 @@ model Profile {
   userId      String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   address     String?
-  city        String?  @default("Paris")
-  country     String?  @default("France")
+  city        String?
+  country     String?
   postalCode  String?
-  company     String?  @default("Fingerclic Ecosystem")
-  jobTitle    String?  @default("Architecte Solution")
+  company     String?
+  jobTitle    String?
   githubUrl   String?
   linkedinUrl String?
   websiteUrl  String?
@@ -99,7 +99,7 @@ model UserPreference {
   userId           String   @unique
   user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   theme            String   @default("dark")
-  marketingEmails  Boolean  @default(true)
+  marketingEmails  Boolean  @default(false)
   securityAlerts   Boolean  @default(true)
   twoFactorEnabled Boolean  @default(false)
   createdAt        DateTime @default(now())
@@ -128,8 +128,8 @@ model Session {
   deviceType  String   // Desktop, Mobile, Tablet
   browser     String   // Chrome, Safari, Firefox, Edge
   os          String   // macOS, Windows, iOS, Android, Linux
-  city        String?  @default("Paris")
-  country     String?  @default("France")
+  city        String?
+  country     String?
   location    String   // e.g. "Paris, France"
   isCurrent   Boolean  @default(false)
   lastActive  DateTime @default(now())
