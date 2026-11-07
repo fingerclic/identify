@@ -4,6 +4,20 @@ import path from 'path';
 import bcrypt from 'bcryptjs';
 
 // Instantiate base PrismaClient as requested
+// The JSON Prisma shim is for local development ONLY. It has no transactional or
+// relational guarantees required by a production identity provider.
+if (process.env.NODE_ENV === 'production') {
+  throw new Error('Identify production startup blocked: replace the JSON Prisma shim with a migrated PostgreSQL PrismaClient before deployment.');
+}
+
+function requiredBootstrapValue(name: 'IDENTIFY_BOOTSTRAP_ADMIN_EMAIL' | 'IDENTIFY_BOOTSTRAP_ADMIN_PASSWORD' | 'IDENTIFY_NEXUS_CLIENT_SECRET'): string {
+  const value = process.env[name];
+  if (!value || (name !== 'IDENTIFY_BOOTSTRAP_ADMIN_EMAIL' && value.length < 16)) {
+    throw new Error(`Identify development configuration error: ${name} is required (with a strong value).`);
+  }
+  return value;
+}
+
 const realPrisma = new PrismaClient();
 
 // Persistent JSON storage backup path for container environments without active PostgreSQL daemon
@@ -59,12 +73,12 @@ function saveDb(data: StoreSchema) {
 }
 
 function seedInitialData(): StoreSchema {
-  const masterPasswordHash = bcrypt.hashSync('Password123!', 10);
+  const masterPasswordHash = bcrypt.hashSync(requiredBootstrapValue('IDENTIFY_BOOTSTRAP_ADMIN_PASSWORD'), 10);
   const now = new Date().toISOString();
 
   const superAdminUser = {
     id: 'usr_fingerclic_master_001',
-    email: 'fingerclic@gmail.com',
+    email: requiredBootstrapValue('IDENTIFY_BOOTSTRAP_ADMIN_EMAIL'),
     passwordHash: masterPasswordHash,
     fullName: 'Alexandre Fingerclic',
     avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250',
@@ -283,7 +297,7 @@ function seedInitialData(): StoreSchema {
   const nexusOAuthClient = {
     id: 'client_nexus_001',
     clientId: 'fingerclic-nexus',
-    clientSecret: 'fc_sec_nexus_live_7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
+    clientSecret: requiredBootstrapValue('IDENTIFY_NEXUS_CLIENT_SECRET'),
     name: 'Fingerclic NEXUS',
     redirectUris: [
       'https://fingerclic.com/auth/callback',
@@ -345,7 +359,7 @@ class PrismaEngine {
       this.db.OAuthClient.push({
         id: 'client_nexus_001',
         clientId: 'fingerclic-nexus',
-        clientSecret: 'fc_sec_nexus_live_7a8b9c0d1e2f3g4h5i6j7k8l9m0n',
+        clientSecret: requiredBootstrapValue('IDENTIFY_NEXUS_CLIENT_SECRET'),
         name: 'Fingerclic NEXUS',
         redirectUris: [
           'https://fingerclic.com/auth/callback',
@@ -359,6 +373,11 @@ class PrismaEngine {
       });
       this.persist();
     } else {
+      const configuredClientSecret = requiredBootstrapValue('IDENTIFY_NEXUS_CLIENT_SECRET');
+      if (existingClient.clientSecret !== configuredClientSecret) {
+        existingClient.clientSecret = configuredClientSecret;
+        this.persist();
+      }
       const targetUris = [
         'https://fingerclic.com/auth/callback',
         'https://nexus.fingerclic.com/auth/callback',
