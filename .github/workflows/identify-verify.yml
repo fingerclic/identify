@@ -1,0 +1,51 @@
+name: Identify — static and Prisma checks
+
+on:
+  push:
+    branches:
+      - security/identify-p0-hardening-20261107
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NODE_ENV: development
+      # Deliberately non-routable dummy URL; no external DB access in CI.
+      IDENTIFY_DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/identify_ci
+      JWT_SECRET: ci-only-access-signing-secret-strong-and-distinct-000001
+      JWT_REFRESH_SECRET: ci-only-refresh-signing-secret-strong-and-distinct-000002
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Generate Prisma client
+        run: npm run db:generate
+      - name: Validate Prisma schema
+        run: npm run db:validate
+      - name: TypeScript check
+        run: npm run lint
+      - name: Bundle application (no deployment)
+        run: npm run build
+      - name: Generate SQL preview from empty schema (no DB connection)
+        run: |
+          npx prisma migrate diff --from-empty --to-schema-datamodel prisma/schema.prisma --script > /tmp/identify-initial-schema.sql
+          test -s /tmp/identify-initial-schema.sql
+          grep -q 'CREATE TABLE "User"' /tmp/identify-initial-schema.sql
+      - name: Upload SQL preview for review
+        uses: actions/upload-artifact@v4
+        with:
+          name: identify-initial-schema-preview
+          path: /tmp/identify-initial-schema.sql
+          retention-days: 7
