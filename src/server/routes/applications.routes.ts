@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { ApplicationService } from '../services/application.service';
 import { authenticateJwt, AuthenticatedRequest } from '../middleware/authenticateJwt';
-import { requireApplicationAccess } from '../middleware/requirePermission';
+import { requireApplicationAccess, requirePermission } from '../middleware/requirePermission';
 
 export const applicationsRouter = Router();
 const appService = new ApplicationService();
@@ -24,7 +24,7 @@ applicationsRouter.get('/apps', authenticateJwt, async (req: AuthenticatedReques
 });
 
 // POST /api/apps/:code/access
-applicationsRouter.post('/apps/:code/access', authenticateJwt, async (req: AuthenticatedRequest, res: Response) => {
+applicationsRouter.post('/apps/:code/access', authenticateJwt, requirePermission('apps:manage'), async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user!.userId;
     const code = req.params.code;
@@ -41,7 +41,7 @@ applicationsRouter.post('/apps/:code/access', authenticateJwt, async (req: Authe
 });
 
 // DELETE /api/apps/:code/access
-applicationsRouter.delete('/apps/:code/access', authenticateJwt, async (req: AuthenticatedRequest, res: Response) => {
+applicationsRouter.delete('/apps/:code/access', authenticateJwt, requirePermission('apps:manage'), async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user!.userId;
     const code = req.params.code;
